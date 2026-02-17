@@ -8,7 +8,7 @@ This project implements a **serverless REST API** to manage records (e.g., a to-
 ## Architecture Diagram (Flow)
 
 **Front-end hosting**
-- User Browser → **S3 Static Website Hosting** (downloads HTML/CSS/JS)
+- User Browser → **S3 Static Website Hosting**
 
 **API calls**
 - User Browser → **API Gateway** → **Lambda** → **DynamoDB**
@@ -16,14 +16,13 @@ This project implements a **serverless REST API** to manage records (e.g., a to-
 **Monitoring**
 - **API Gateway → CloudWatch** (logs/metrics)
 - **Lambda → CloudWatch** (logs/metrics)
-- **DynamoDB → CloudWatch** (metrics)
 
 ---
 
 ## Key AWS Services Used
 
 ### Amazon S3 (Static Website Hosting)
-- Hosts the front-end (static files مثل HTML/CSS/JavaScript).
+- Hosts the front-end (static files).
 - The browser loads the website from S3, then calls the API Gateway endpoints.
 
 ### Amazon API Gateway
@@ -48,42 +47,11 @@ This project implements a **serverless REST API** to manage records (e.g., a to-
   - Lambda logs and metrics
   - DynamoDB metrics
 
----
-
-## API Endpoints (Example)
-
-For a to-do application, typical endpoints are:
-
-- `POST /todos` — Create a new item
-- `GET /todos` — List all items
-- `GET /todos/{id}` — Get one item by ID
-- `PUT /todos/{id}` — Update an item
-- `DELETE /todos/{id}` — Delete an item
-
----
-
-## Permissions (IAM)
-
-### Lambda Execution Role (required)
-Minimum permissions typically include:
-- Read/Write access to the DynamoDB table:
-  - `dynamodb:GetItem`
-  - `dynamodb:PutItem`
-  - `dynamodb:UpdateItem`
-  - `dynamodb:DeleteItem`
-  - `dynamodb:Query` / `dynamodb:Scan` (if needed)
-- Write logs to CloudWatch:
-  - `logs:CreateLogGroup`
-  - `logs:CreateLogStream`
-  - `logs:PutLogEvents`
-
-### API Gateway → Lambda Invocation (required)
-- API Gateway must be allowed to invoke the Lambda function (Lambda resource policy / permission).
+ — Delete an item
 
 ---
 
 ## Logging & Monitoring (CloudWatch)
 
 - **Lambda logs**: request handling, errors, and application logs
-- **API Gateway logs**: request/response logs (when enabled)
-- **DynamoDB metrics**: usage and throttling metrics
+- **API Gateway logs**: request/response logs 
